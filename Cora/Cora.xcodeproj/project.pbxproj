@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B71C91B32BC220BC003C6635 /* CoraUI in Frameworks */ = {isa = PBXBuildFile; productRef = B71C91B22BC220BC003C6635 /* CoraUI */; };
 		B7F564DD2BC20890009C7893 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F564DC2BC20890009C7893 /* AppDelegate.swift */; };
 		B7F564DF2BC20890009C7893 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F564DE2BC20890009C7893 /* SceneDelegate.swift */; };
 		B7F564E12BC20890009C7893 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F564E02BC20890009C7893 /* ViewController.swift */; };
@@ -54,6 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B71C91B32BC220BC003C6635 /* CoraUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,6 +142,9 @@
 			dependencies = (
 			);
 			name = Cora;
+			packageProductDependencies = (
+				B71C91B22BC220BC003C6635 /* CoraUI */,
+			);
 			productName = Cora;
 			productReference = B7F564D92BC20890009C7893 /* Cora.app */;
 			productType = "com.apple.product-type.application";
@@ -212,6 +217,9 @@
 				Base,
 			);
 			mainGroup = B7F564D02BC20890009C7893;
+			packageReferences = (
+				B71C91B12BC220BC003C6635 /* XCLocalSwiftPackageReference "../CoraUI" */,
+			);
 			productRefGroup = B7F564DA2BC20890009C7893 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -601,6 +609,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		B71C91B12BC220BC003C6635 /* XCLocalSwiftPackageReference "../CoraUI" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../CoraUI;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B71C91B22BC220BC003C6635 /* CoraUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CoraUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B7F564D12BC20890009C7893 /* Project object */;
 }
