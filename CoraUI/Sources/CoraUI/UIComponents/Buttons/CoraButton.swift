@@ -7,40 +7,14 @@
 
 import UIKit
 
-public enum CoraButtonScale {
-    case medium
-    case large
-
-    var font: UIFont {
-        return CoraFonts.bold(ofSize: self == .medium ? 14 : 16).font
-    }
-}
-
 public class CoraButton: BaseView {
 
     private let button: UIButton = UIButton()
-
-    internal var primaryTitleColor: UIColor? {
-        return ThemeManager.current.secondaryColor
-    }
-
-    internal var disabledTitleColor: UIColor? {
-        return ThemeManager.current.secondaryColor
-    }
-
-    internal var primaryBackgoundColor: UIColor? {
-        return ThemeManager.current.primaryColor
-    }
-
-    internal var disabledBackgroundColor: UIColor? {
-        return ThemeManager.current.grayedOutColor
-    }
 
     public var onClick: (() -> Void)?
 
     public var isActive: Bool = true {
         didSet {
-            self.backgroundColor
             button.isEnabled = isActive
         }
     }
@@ -52,15 +26,9 @@ public class CoraButton: BaseView {
         }
     }
 
-    public var cornerRadius: CGFloat = 12 {
+    public var buttonStyle: CoraButtonStyle = .regular() {
         didSet {
-            setCorners()
-        }
-    }
-
-    public var buttonScale: CoraButtonScale = .medium {
-        didSet {
-            button.titleLabel?.font = buttonScale.font
+            button.titleLabel?.font = buttonStyle.font
         }
     }
 
@@ -110,19 +78,19 @@ public class CoraButton: BaseView {
     }
 
     private func setCorners() {
-        button.layer.cornerRadius = cornerRadius
+        button.layer.cornerRadius = buttonStyle.cornerRadius
         button.clipsToBounds = true
-        self.layer.cornerRadius = cornerRadius
+        self.layer.cornerRadius = buttonStyle.cornerRadius
         self.clipsToBounds = true
     }
 
     private func configureButtonUI() {
-        button.titleLabel?.font = buttonScale.font
+        button.titleLabel?.font = buttonStyle.font
         button.contentHorizontalAlignment = .left
         setCorners()
 
-        button.setTitleColor(primaryTitleColor, for: .normal)
-        button.setTitleColor(disabledTitleColor, for: .disabled)
+        button.setTitleColor(buttonStyle.titleColor, for: .normal)
+        button.setTitleColor(buttonStyle.disabledTitleColor, for: .disabled)
 
         var config = UIButton.Configuration.filled()
         config.baseBackgroundColor = ThemeManager.current.primaryColor
@@ -141,12 +109,12 @@ public class CoraButton: BaseView {
 
             switch button.state {
             case .normal:
-                button.backgroundColor = primaryBackgoundColor
-                button.tintColor = primaryTitleColor
+                button.backgroundColor = buttonStyle.backgoundColor
+                button.tintColor = buttonStyle.titleColor
 
             case .disabled:
-                button.backgroundColor = disabledBackgroundColor
-                button.tintColor = disabledTitleColor
+                button.backgroundColor = buttonStyle.disabledBackgroundColor
+                button.tintColor = buttonStyle.disabledTitleColor
 
             default:
                 break

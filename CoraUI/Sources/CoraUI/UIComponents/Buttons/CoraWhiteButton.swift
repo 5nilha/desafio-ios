@@ -5,25 +5,13 @@
 //  Created by Fabio Quintanilha on 07/04/24.
 //
 
-import Foundation
+import UIKit
 
 public class CoraWhiteButton: CoraButton {
 
-    override var primaryTitleColor: UIColor? {
-        return ThemeManager.current.primaryColor
-    }
+}
 
-    override var disabledTitleColor: UIColor? {
-        return ThemeManager.current.primaryColor
-    }
-
-    override var primaryBackgoundColor: UIColor? {
-        return ThemeManager.current.secondaryColor
-    }
-
-    override var disabledBackgroundColor: UIColor? {
-        return ThemeManager.current.secondaryColor
-    }
+public class CoraLinkButton: CoraButton {
 
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,4 +20,5 @@ public class CoraWhiteButton: CoraButton {
     public required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
+
 }
