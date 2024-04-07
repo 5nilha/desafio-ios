@@ -5,7 +5,7 @@
 //  Created by Fabio Quintanilha on 07/04/24.
 //
 
-import UIKit.UIButton
+import UIKit
 
 public enum CoraButtonScale {
     case medium
@@ -19,6 +19,14 @@ public enum CoraButtonScale {
 public class CoraButton: BaseView {
 
     private let button: UIButton = UIButton()
+
+    public var onClick: (() -> Void)?
+
+    public var isActive: Bool = true {
+        didSet {
+            button.isEnabled = isActive
+        }
+    }
 
     public var cornerRadius: CGFloat = 12 {
         didSet {
@@ -50,7 +58,7 @@ public class CoraButton: BaseView {
         setView()
     }
 
-    public convenience init(title: String, icon: UIImage? = nil) {
+    public convenience init(title: String, icon: UIImage? = nil, onClick: (() -> Void)? = nil) {
         self.init(frame: .zero)
         button.setTitle(title, for: .normal)
         self.icon = icon
@@ -70,7 +78,8 @@ public class CoraButton: BaseView {
     }
 
     private func setupButton() {
-        configureButton()
+        configureButtonUI()
+        updateButtonUIStates()
         setupAccessibility()
     }
 
@@ -81,7 +90,7 @@ public class CoraButton: BaseView {
         self.clipsToBounds = true
     }
 
-    private func configureButton() {
+    private func configureButtonUI() {
         button.titleLabel?.font = buttonScale.font
         button.contentHorizontalAlignment = .left
         setCorners()
@@ -89,13 +98,12 @@ public class CoraButton: BaseView {
         var config = UIButton.Configuration.filled()
         config.baseBackgroundColor = ThemeManager.current.primaryColor
         config.baseForegroundColor = ThemeManager.current.secondaryColor
-        config.image = icon ?? UIImage(systemName: "arrow.right")
+        config.image = icon
         config.titleAlignment = .center
         config.imagePlacement = .trailing
         config.imagePadding = 8
         config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16)
         button.configuration = config
-        updateButtonUIStates()
     }
 
     private func updateButtonUIStates() {
@@ -120,6 +128,14 @@ public class CoraButton: BaseView {
                 button.titleLabel?.font = self.buttonScale.font
             }
         }
+    }
+
+    private func setButtonAction() {
+        button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+    }
+
+    @objc private func buttonAction() {
+        onClick?()
     }
 
     private func setupAccessibility() {
