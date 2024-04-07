@@ -20,11 +20,35 @@ public class CoraButton: BaseView {
 
     private let button: UIButton = UIButton()
 
+    internal var primaryTitleColor: UIColor? {
+        return ThemeManager.current.secondaryColor
+    }
+
+    internal var disabledTitleColor: UIColor? {
+        return ThemeManager.current.secondaryColor
+    }
+
+    internal var primaryBackgoundColor: UIColor? {
+        return ThemeManager.current.primaryColor
+    }
+
+    internal var disabledBackgroundColor: UIColor? {
+        return ThemeManager.current.grayedOutColor
+    }
+
     public var onClick: (() -> Void)?
 
     public var isActive: Bool = true {
         didSet {
+            self.backgroundColor
             button.isEnabled = isActive
+        }
+    }
+
+    public override var backgroundColor: UIColor?  {
+        didSet {
+            super.backgroundColor = .clear
+            button.backgroundColor = backgroundColor
         }
     }
 
@@ -42,7 +66,7 @@ public class CoraButton: BaseView {
 
     public var icon: UIImage? {
         didSet {
-            button.setImage(icon, for: .normal)
+            button.configuration?.image = icon
         }
     }
 
@@ -60,8 +84,9 @@ public class CoraButton: BaseView {
 
     public convenience init(title: String, icon: UIImage? = nil, onClick: (() -> Void)? = nil) {
         self.init(frame: .zero)
-        button.setTitle(title, for: .normal)
         self.icon = icon
+        button.setTitle(title, for: .normal)
+        button.configuration?.image = icon
     }
 
     private func setView() {
@@ -81,6 +106,7 @@ public class CoraButton: BaseView {
         configureButtonUI()
         updateButtonUIStates()
         setupAccessibility()
+        setButtonAction()
     }
 
     private func setCorners() {
@@ -95,9 +121,12 @@ public class CoraButton: BaseView {
         button.contentHorizontalAlignment = .left
         setCorners()
 
+        button.setTitleColor(primaryTitleColor, for: .normal)
+        button.setTitleColor(disabledTitleColor, for: .disabled)
+
         var config = UIButton.Configuration.filled()
         config.baseBackgroundColor = ThemeManager.current.primaryColor
-        config.baseForegroundColor = ThemeManager.current.secondaryColor
+//        config.baseForegroundColor = ThemeManager.current.secondaryColor
         config.image = icon
         config.titleAlignment = .center
         config.imagePlacement = .trailing
@@ -112,20 +141,15 @@ public class CoraButton: BaseView {
 
             switch button.state {
             case .normal:
-                button.configuration?.baseBackgroundColor = ThemeManager.current.primaryColor
-                button.configuration?.baseForegroundColor = ThemeManager.current.secondaryColor
+                button.backgroundColor = primaryBackgoundColor
+                button.tintColor = primaryTitleColor
 
             case .disabled:
-                button.configuration?.baseBackgroundColor = ThemeManager.current.grayedOutColor
-                button.configuration?.baseForegroundColor = ThemeManager.current.secondaryColor
+                button.backgroundColor = disabledBackgroundColor
+                button.tintColor = disabledTitleColor
 
             default:
                 break
-            }
-
-            // The title font needs to be updated only if it has changed.
-            if button.titleLabel?.font != self.buttonScale.font {
-                button.titleLabel?.font = self.buttonScale.font
             }
         }
     }
@@ -135,6 +159,7 @@ public class CoraButton: BaseView {
     }
 
     @objc private func buttonAction() {
+        isActive = false
         onClick?()
     }
 
