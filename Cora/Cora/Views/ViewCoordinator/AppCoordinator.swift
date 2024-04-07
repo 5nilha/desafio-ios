@@ -37,9 +37,9 @@ extension AppCoordinator: CoordinatorDelegate {
         case .loginProfile:
             showView(.loginPassword)
         case .loginPassword:
-            showView(.bankStatement)
-        case .bankStatement:
-            showView(.bankStatementDetails)
+            showView(.transactions)
+        case .transactions:
+            showView(.transactionDetails)
         default:
             break
         }

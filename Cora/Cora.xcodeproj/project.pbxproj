@@ -15,7 +15,7 @@
 		B71C91CB2BC25327003C6635 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71C91CA2BC25327003C6635 /* HomeViewController.swift */; };
 		B71C91CD2BC2535B003C6635 /* LoginPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71C91CC2BC2535B003C6635 /* LoginPasswordViewController.swift */; };
 		B71C91CF2BC25381003C6635 /* LoginProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71C91CE2BC25381003C6635 /* LoginProfileViewController.swift */; };
-		B71C91D22BC253B5003C6635 /* BankStatementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71C91D12BC253B5003C6635 /* BankStatementViewController.swift */; };
+		B71C91D22BC253B5003C6635 /* TransactionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71C91D12BC253B5003C6635 /* TransactionsViewController.swift */; };
 		B71C91D52BC253F6003C6635 /* TransactionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71C91D42BC253F6003C6635 /* TransactionDetailsViewController.swift */; };
 		B71C91D72BC259DF003C6635 /* CoordinatedFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71C91D62BC259DF003C6635 /* CoordinatedFlow.swift */; };
 		B7F564DD2BC20890009C7893 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F564DC2BC20890009C7893 /* AppDelegate.swift */; };
@@ -53,7 +53,7 @@
 		B71C91CA2BC25327003C6635 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		B71C91CC2BC2535B003C6635 /* LoginPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPasswordViewController.swift; sourceTree = "<group>"; };
 		B71C91CE2BC25381003C6635 /* LoginProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginProfileViewController.swift; sourceTree = "<group>"; };
-		B71C91D12BC253B5003C6635 /* BankStatementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankStatementViewController.swift; sourceTree = "<group>"; };
+		B71C91D12BC253B5003C6635 /* TransactionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsViewController.swift; sourceTree = "<group>"; };
 		B71C91D42BC253F6003C6635 /* TransactionDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailsViewController.swift; sourceTree = "<group>"; };
 		B71C91D62BC259DF003C6635 /* CoordinatedFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatedFlow.swift; sourceTree = "<group>"; };
 		B7F564D92BC20890009C7893 /* Cora.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cora.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -156,7 +156,7 @@
 		B71C91D02BC25396003C6635 /* BankStatement */ = {
 			isa = PBXGroup;
 			children = (
-				B71C91D12BC253B5003C6635 /* BankStatementViewController.swift */,
+				B71C91D12BC253B5003C6635 /* TransactionsViewController.swift */,
 			);
 			path = BankStatement;
 			sourceTree = "<group>";
@@ -365,7 +365,7 @@
 				B71C91D72BC259DF003C6635 /* CoordinatedFlow.swift in Sources */,
 				B71C91CB2BC25327003C6635 /* HomeViewController.swift in Sources */,
 				B7F564DD2BC20890009C7893 /* AppDelegate.swift in Sources */,
-				B71C91D22BC253B5003C6635 /* BankStatementViewController.swift in Sources */,
+				B71C91D22BC253B5003C6635 /* TransactionsViewController.swift in Sources */,
 				B7F564DF2BC20890009C7893 /* SceneDelegate.swift in Sources */,
 				B71C91C42BC2348E003C6635 /* CoordinatorDelegate.swift in Sources */,
 				B71C91C62BC234BD003C6635 /* AppCoordinator.swift in Sources */,
