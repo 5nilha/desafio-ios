@@ -8,6 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		B71C91B32BC220BC003C6635 /* CoraUI in Frameworks */ = {isa = PBXBuildFile; productRef = B71C91B22BC220BC003C6635 /* CoraUI */; };
+		B71C91BD2BC23216003C6635 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71C91BC2BC23216003C6635 /* BaseViewController.swift */; };
+		B71C91C12BC232FD003C6635 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71C91C02BC232FD003C6635 /* Coordinator.swift */; };
+		B71C91C42BC2348E003C6635 /* CoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71C91C32BC2348E003C6635 /* CoordinatorDelegate.swift */; };
+		B71C91C62BC234BD003C6635 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71C91C52BC234BD003C6635 /* AppCoordinator.swift */; };
+		B71C91CB2BC25327003C6635 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71C91CA2BC25327003C6635 /* HomeViewController.swift */; };
+		B71C91CD2BC2535B003C6635 /* LoginPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71C91CC2BC2535B003C6635 /* LoginPasswordViewController.swift */; };
+		B71C91CF2BC25381003C6635 /* LoginProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71C91CE2BC25381003C6635 /* LoginProfileViewController.swift */; };
+		B71C91D22BC253B5003C6635 /* BankStatementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71C91D12BC253B5003C6635 /* BankStatementViewController.swift */; };
+		B71C91D52BC253F6003C6635 /* TransactionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71C91D42BC253F6003C6635 /* TransactionDetailsViewController.swift */; };
+		B71C91D72BC259DF003C6635 /* CoordinatedFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71C91D62BC259DF003C6635 /* CoordinatedFlow.swift */; };
 		B7F564DD2BC20890009C7893 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F564DC2BC20890009C7893 /* AppDelegate.swift */; };
 		B7F564DF2BC20890009C7893 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F564DE2BC20890009C7893 /* SceneDelegate.swift */; };
 		B7F564E12BC20890009C7893 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F564E02BC20890009C7893 /* ViewController.swift */; };
@@ -36,6 +46,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B71C91BC2BC23216003C6635 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		B71C91C02BC232FD003C6635 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		B71C91C32BC2348E003C6635 /* CoordinatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorDelegate.swift; sourceTree = "<group>"; };
+		B71C91C52BC234BD003C6635 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		B71C91CA2BC25327003C6635 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		B71C91CC2BC2535B003C6635 /* LoginPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPasswordViewController.swift; sourceTree = "<group>"; };
+		B71C91CE2BC25381003C6635 /* LoginProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginProfileViewController.swift; sourceTree = "<group>"; };
+		B71C91D12BC253B5003C6635 /* BankStatementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankStatementViewController.swift; sourceTree = "<group>"; };
+		B71C91D42BC253F6003C6635 /* TransactionDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailsViewController.swift; sourceTree = "<group>"; };
+		B71C91D62BC259DF003C6635 /* CoordinatedFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatedFlow.swift; sourceTree = "<group>"; };
 		B7F564D92BC20890009C7893 /* Cora.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cora.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7F564DC2BC20890009C7893 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B7F564DE2BC20890009C7893 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -76,6 +96,79 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B71C91B82BC231E3003C6635 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B71C91BF2BC232CD003C6635 /* ViewCoordinator */,
+				B71C91BB2BC231FC003C6635 /* ViewControllers */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		B71C91BB2BC231FC003C6635 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				B71C91D32BC253C1003C6635 /* TransactionDetail */,
+				B71C91D02BC25396003C6635 /* BankStatement */,
+				B71C91C92BC25317003C6635 /* Home */,
+				B71C91C82BC2530B003C6635 /* Login */,
+				B71C91C72BC25300003C6635 /* Base */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		B71C91BF2BC232CD003C6635 /* ViewCoordinator */ = {
+			isa = PBXGroup;
+			children = (
+				B71C91C02BC232FD003C6635 /* Coordinator.swift */,
+				B71C91C32BC2348E003C6635 /* CoordinatorDelegate.swift */,
+				B71C91C52BC234BD003C6635 /* AppCoordinator.swift */,
+				B71C91D62BC259DF003C6635 /* CoordinatedFlow.swift */,
+			);
+			path = ViewCoordinator;
+			sourceTree = "<group>";
+		};
+		B71C91C72BC25300003C6635 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				B71C91BC2BC23216003C6635 /* BaseViewController.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		B71C91C82BC2530B003C6635 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				B71C91CC2BC2535B003C6635 /* LoginPasswordViewController.swift */,
+				B71C91CE2BC25381003C6635 /* LoginProfileViewController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		B71C91C92BC25317003C6635 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				B71C91CA2BC25327003C6635 /* HomeViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		B71C91D02BC25396003C6635 /* BankStatement */ = {
+			isa = PBXGroup;
+			children = (
+				B71C91D12BC253B5003C6635 /* BankStatementViewController.swift */,
+			);
+			path = BankStatement;
+			sourceTree = "<group>";
+		};
+		B71C91D32BC253C1003C6635 /* TransactionDetail */ = {
+			isa = PBXGroup;
+			children = (
+				B71C91D42BC253F6003C6635 /* TransactionDetailsViewController.swift */,
+			);
+			path = TransactionDetail;
+			sourceTree = "<group>";
+		};
 		B7F564D02BC20890009C7893 = {
 			isa = PBXGroup;
 			children = (
@@ -99,6 +192,7 @@
 		B7F564DB2BC20890009C7893 /* Cora */ = {
 			isa = PBXGroup;
 			children = (
+				B71C91B82BC231E3003C6635 /* Views */,
 				B7F564DC2BC20890009C7893 /* AppDelegate.swift */,
 				B7F564DE2BC20890009C7893 /* SceneDelegate.swift */,
 				B7F564E02BC20890009C7893 /* ViewController.swift */,
@@ -262,9 +356,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B71C91CF2BC25381003C6635 /* LoginProfileViewController.swift in Sources */,
 				B7F564E12BC20890009C7893 /* ViewController.swift in Sources */,
+				B71C91CD2BC2535B003C6635 /* LoginPasswordViewController.swift in Sources */,
+				B71C91BD2BC23216003C6635 /* BaseViewController.swift in Sources */,
+				B71C91D52BC253F6003C6635 /* TransactionDetailsViewController.swift in Sources */,
+				B71C91C12BC232FD003C6635 /* Coordinator.swift in Sources */,
+				B71C91D72BC259DF003C6635 /* CoordinatedFlow.swift in Sources */,
+				B71C91CB2BC25327003C6635 /* HomeViewController.swift in Sources */,
 				B7F564DD2BC20890009C7893 /* AppDelegate.swift in Sources */,
+				B71C91D22BC253B5003C6635 /* BankStatementViewController.swift in Sources */,
 				B7F564DF2BC20890009C7893 /* SceneDelegate.swift in Sources */,
+				B71C91C42BC2348E003C6635 /* CoordinatorDelegate.swift in Sources */,
+				B71C91C62BC234BD003C6635 /* AppCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
