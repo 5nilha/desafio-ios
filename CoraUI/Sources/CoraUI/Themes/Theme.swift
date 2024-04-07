@@ -1,6 +1,6 @@
 
 #if canImport(UIKit)
-import UIKit
+import UIKit.UIColor
 #endif
 
 fileprivate protocol Theme {
@@ -51,3 +51,5 @@ public enum UITheme: Theme {
         return UIColor(red: 0.94, green: 0.96, blue: 0.97, alpha: 1.00)
     }
 }
+
+
