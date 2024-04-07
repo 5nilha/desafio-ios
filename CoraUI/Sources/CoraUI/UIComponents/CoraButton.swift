@@ -8,89 +8,125 @@
 import UIKit.UIButton
 
 public enum CoraButtonScale {
-    case meddium
+    case medium
     case large
 
     var font: UIFont {
-        return CoraFonts.bold(ofSize: self == .meddium ? 14 : 16).font
+        return CoraFonts.bold(ofSize: self == .medium ? 14 : 16).font
     }
 }
 
-public class CoraButton: UIButton {
+public class CoraButton: BaseView {
 
-    public var corner: CGFloat = 16 {
+    private let button: UIButton = UIButton()
+
+    public var cornerRadius: CGFloat = 12 {
         didSet {
-            self.layer.cornerRadius = corner
+            setCorners()
         }
     }
 
-    public var buttonScale: CoraButtonScale = .meddium {
+    public var buttonScale: CoraButtonScale = .medium {
         didSet {
-            self.titleLabel?.font = buttonScale.font
+            button.titleLabel?.font = buttonScale.font
         }
     }
 
     public var icon: UIImage? {
         didSet {
-            guard let icon else { return }
-            self.setImage(icon, for: .normal)
+            button.setImage(icon, for: .normal)
         }
     }
 
     // Initialization of the button
     public override init(frame: CGRect) {
         super.init(frame: frame)
-        setupButton()
+        setView()
     }
 
     // For using the button in Interface Builder
     public required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setupButton()
+        setView()
     }
 
-    public convenience init(title: String = "cora_button_title") {
+    public convenience init(title: String, icon: UIImage? = nil) {
         self.init(frame: .zero)
-        self.setTitle(title, for: .normal)
+        button.setTitle(title, for: .normal)
+        self.icon = icon
     }
 
-    // Setting up the button's appearance and accessibility
+    private func setView() {
+        button.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(button)
+        setupButton()
+
+        NSLayoutConstraint.activate([
+            button.topAnchor.constraint(equalTo: topAnchor),
+            button.bottomAnchor.constraint(equalTo: bottomAnchor),
+            button.leadingAnchor.constraint(equalTo: leadingAnchor),
+            button.trailingAnchor.constraint(equalTo: trailingAnchor)
+        ])
+    }
+
     private func setupButton() {
-        translatesAutoresizingMaskIntoConstraints = false
+        configureButton()
+        setupAccessibility()
+    }
 
-        // Set the button's background color
-        self.backgroundColor = ThemeManager.current.primaryColor
+    private func setCorners() {
+        button.layer.cornerRadius = cornerRadius
+        button.clipsToBounds = true
+        self.layer.cornerRadius = cornerRadius
+        self.clipsToBounds = true
+    }
 
-        // Set the button's title color
-        self.setTitleColor(ThemeManager.current.secondaryColor, for: .normal)
+    private func configureButton() {
+        button.titleLabel?.font = buttonScale.font
+        button.contentHorizontalAlignment = .left
+        setCorners()
 
-        // Set the button's font
-        self.titleLabel?.font = buttonScale.font
+        var config = UIButton.Configuration.filled()
+        config.baseBackgroundColor = ThemeManager.current.primaryColor
+        config.baseForegroundColor = ThemeManager.current.secondaryColor
+        config.image = icon ?? UIImage(systemName: "arrow.right")
+        config.titleAlignment = .center
+        config.imagePlacement = .trailing
+        config.imagePadding = 8
+        config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16)
+        button.configuration = config
+        updateButtonUIStates()
+    }
 
-        // Make the button's corners rounded
-        self.layer.cornerRadius = corner
+    private func updateButtonUIStates() {
+        button.configurationUpdateHandler = { [weak self] button in
+            guard let self = self else { return }
 
-        // Adjust the image position (right side) and title (left side)
-        self.semanticContentAttribute = .forceRightToLeft
-        self.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 16)
-        self.titleEdgeInsets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0)
+            switch button.state {
+            case .normal:
+                button.configuration?.baseBackgroundColor = ThemeManager.current.primaryColor
+                button.configuration?.baseForegroundColor = ThemeManager.current.secondaryColor
 
-        // Accessibility settings
+            case .disabled:
+                button.configuration?.baseBackgroundColor = ThemeManager.current.grayedOutColor
+                button.configuration?.baseForegroundColor = ThemeManager.current.secondaryColor
+
+            default:
+                break
+            }
+
+            // The title font needs to be updated only if it has changed.
+            if button.titleLabel?.font != self.buttonScale.font {
+                button.titleLabel?.font = self.buttonScale.font
+            }
+        }
+    }
+
+    private func setupAccessibility() {
         self.isAccessibilityElement = true
-        self.accessibilityLabel = "\(self.title(for: .normal) ?? "")"
+        self.accessibilityLabel = "\(button.title(for: .normal) ?? "")"
         self.accessibilityHint = "Dê dois toques para continuar"
         self.accessibilityTraits = .button
-
-        // Accessibility identifier for UI testing
         self.accessibilityIdentifier = "coraButton"
-    }
-
-    // To ensure that the button's content scales properly
-    public override var intrinsicContentSize: CGSize {
-        let labelSize = titleLabel?.intrinsicContentSize ?? .zero
-        let imageSize = imageView?.intrinsicContentSize ?? .zero
-        let width = labelSize.width + imageSize.width + 32
-        let height = max(labelSize.height, imageSize.height) + 16
-        return CGSize(width: width, height: height)
     }
 }
