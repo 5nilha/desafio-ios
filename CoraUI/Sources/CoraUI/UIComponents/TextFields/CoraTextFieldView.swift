@@ -9,8 +9,10 @@ import UIKit
 
 public class CoraTextFieldView: BaseView {
 
-    public let textField: UITextField = UITextField()
+    internal let textField: UITextField = UITextField()
     private let iconView: UIImageView = UIImageView()
+
+    weak var delegate: CoraTextFieldDelegate?
 
     public var icon: UIImage? {
         didSet {
@@ -116,6 +118,14 @@ extension CoraTextFieldView: UITextFieldDelegate {
 
     public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         return formatter.decorate(text: &textField.text, inputString: string, position: range.location, rangeLength: range.length)
+    }
+
+    public func textFieldDidBeginEditing(_ textField: UITextField) {
+        delegate?.textFieldDidBeginEditing?(textField)
+    }
+
+    public func textFieldDidEndEditing(_ textField: UITextField) {
+        delegate?.textFieldDidEndEditing?(textField)
     }
 }
 
