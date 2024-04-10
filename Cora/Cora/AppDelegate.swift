@@ -11,8 +11,6 @@ import CoraUI
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         ThemeManager.applyTheme(theme: .light)
@@ -37,5 +35,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     private func setupNavigationControllerUI() {
         UINavigationBar.appearance().backgroundColor = ThemeManager.current.lightColor
         UINavigationBar.appearance().tintColor = ThemeManager.current.primaryColor
+        configureNavigationBarTitleFont()
     }
+
+    private func configureNavigationBarTitleFont() {
+            let attributes: [NSAttributedString.Key: Any] = [
+                .font: CoraFonts.regular(ofSize: 14).font,
+                .foregroundColor: ThemeManager.current.darkTextColor
+            ]
+
+            if #available(iOS 15, *) {
+                let appearance = UINavigationBarAppearance()
+                appearance.titleTextAttributes = attributes
+                appearance.configureWithOpaqueBackground()
+                UINavigationBar.appearance().standardAppearance = appearance
+                UINavigationBar.appearance().scrollEdgeAppearance = appearance
+                UINavigationBar.appearance().compactAppearance = appearance
+            } else {
+                UINavigationBar.appearance().titleTextAttributes = attributes
+            }
+        }
 }
