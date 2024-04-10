@@ -14,4 +14,5 @@ public protocol CoraUITransactionViewModeling {
     var sender: String { get }
     var time: String { get }
     var transactionType: CoraUITransactionViewType { get }
+    var category: String? { get }
 }
