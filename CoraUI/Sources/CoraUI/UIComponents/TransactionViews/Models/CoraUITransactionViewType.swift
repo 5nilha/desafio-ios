@@ -8,6 +8,7 @@
 import Foundation
 
 public enum CoraUITransactionViewType {
+    case deposit
     case income
     case outcome
     case returned
