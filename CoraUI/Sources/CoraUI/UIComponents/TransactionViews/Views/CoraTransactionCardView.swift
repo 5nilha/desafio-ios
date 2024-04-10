@@ -108,6 +108,11 @@ public class CoraTransactionCardView: BaseView {
             amountLabel.textColor = ThemeManager.current.accentColor
             descriptionLabel.textColor = ThemeManager.current.accentColor
             amountLabel.attributeType = .regular
+            transactionImageView.image = UIImage(named: transaction.imageName)?.withTintColor(ThemeManager.current.darkTextColor, renderingMode: .alwaysOriginal)
+        case .deposit:
+            amountLabel.textColor = ThemeManager.current.accentColor
+            descriptionLabel.textColor = ThemeManager.current.accentColor
+            amountLabel.attributeType = .regular
             transactionImageView.image = UIImage(named: transaction.imageName)?.withTintColor(ThemeManager.current.accentColor, renderingMode: .alwaysOriginal)
         case .returned:
             amountLabel.textColor = ThemeManager.current.darkTextColor
