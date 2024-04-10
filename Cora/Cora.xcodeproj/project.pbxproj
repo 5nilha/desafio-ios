@@ -18,7 +18,11 @@
 		B71C91D22BC253B5003C6635 /* TransactionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71C91D12BC253B5003C6635 /* TransactionsViewController.swift */; };
 		B71C91D52BC253F6003C6635 /* TransactionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71C91D42BC253F6003C6635 /* TransactionDetailsViewController.swift */; };
 		B71C91D72BC259DF003C6635 /* CoordinatedFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71C91D62BC259DF003C6635 /* CoordinatedFlow.swift */; };
+		B73315862BC641E10072AEE8 /* UISegmentedControl+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B73315852BC641E10072AEE8 /* UISegmentedControl+Extension.swift */; };
+		B73315882BC642210072AEE8 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B73315872BC642210072AEE8 /* UIImage+Extension.swift */; };
 		B77A9BFF2BC5D5D8009C0A19 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77A9BFE2BC5D5D8009C0A19 /* Constants.swift */; };
+		B77A9C022BC5DFB4009C0A19 /* TransactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77A9C012BC5DFB4009C0A19 /* TransactionViewModel.swift */; };
+		B77A9C042BC5E319009C0A19 /* TransactionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77A9C032BC5E319009C0A19 /* TransactionTableViewCell.swift */; };
 		B7F564DD2BC20890009C7893 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F564DC2BC20890009C7893 /* AppDelegate.swift */; };
 		B7F564DF2BC20890009C7893 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F564DE2BC20890009C7893 /* SceneDelegate.swift */; };
 		B7F564E62BC20893009C7893 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B7F564E52BC20893009C7893 /* Assets.xcassets */; };
@@ -56,7 +60,11 @@
 		B71C91D12BC253B5003C6635 /* TransactionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsViewController.swift; sourceTree = "<group>"; };
 		B71C91D42BC253F6003C6635 /* TransactionDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDetailsViewController.swift; sourceTree = "<group>"; };
 		B71C91D62BC259DF003C6635 /* CoordinatedFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatedFlow.swift; sourceTree = "<group>"; };
+		B73315852BC641E10072AEE8 /* UISegmentedControl+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISegmentedControl+Extension.swift"; sourceTree = "<group>"; };
+		B73315872BC642210072AEE8 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		B77A9BFE2BC5D5D8009C0A19 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		B77A9C012BC5DFB4009C0A19 /* TransactionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionViewModel.swift; sourceTree = "<group>"; };
+		B77A9C032BC5E319009C0A19 /* TransactionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionTableViewCell.swift; sourceTree = "<group>"; };
 		B7F564D92BC20890009C7893 /* Cora.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cora.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7F564DC2BC20890009C7893 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B7F564DE2BC20890009C7893 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -157,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				B71C91D12BC253B5003C6635 /* TransactionsViewController.swift */,
+				B77A9C032BC5E319009C0A19 /* TransactionTableViewCell.swift */,
 			);
 			path = BankStatement;
 			sourceTree = "<group>";
@@ -169,12 +178,29 @@
 			path = TransactionDetail;
 			sourceTree = "<group>";
 		};
+		B73315842BC641C20072AEE8 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				B73315852BC641E10072AEE8 /* UISegmentedControl+Extension.swift */,
+				B73315872BC642210072AEE8 /* UIImage+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		B77A9BFD2BC5D5CA009C0A19 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
 				B77A9BFE2BC5D5D8009C0A19 /* Constants.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		B77A9C002BC5DF9F009C0A19 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				B77A9C012BC5DFB4009C0A19 /* TransactionViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		B7F564D02BC20890009C7893 = {
@@ -200,6 +226,8 @@
 		B7F564DB2BC20890009C7893 /* Cora */ = {
 			isa = PBXGroup;
 			children = (
+				B73315842BC641C20072AEE8 /* Extensions */,
+				B77A9C002BC5DF9F009C0A19 /* ViewModels */,
 				B77A9BFD2BC5D5CA009C0A19 /* Utils */,
 				B71C91B82BC231E3003C6635 /* Views */,
 				B7F564DC2BC20890009C7893 /* AppDelegate.swift */,
@@ -364,7 +392,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B73315862BC641E10072AEE8 /* UISegmentedControl+Extension.swift in Sources */,
 				B71C91CF2BC25381003C6635 /* LoginProfileViewController.swift in Sources */,
+				B77A9C042BC5E319009C0A19 /* TransactionTableViewCell.swift in Sources */,
 				B71C91CD2BC2535B003C6635 /* LoginPasswordViewController.swift in Sources */,
 				B71C91BD2BC23216003C6635 /* BaseViewController.swift in Sources */,
 				B71C91D52BC253F6003C6635 /* TransactionDetailsViewController.swift in Sources */,
@@ -374,9 +404,11 @@
 				B77A9BFF2BC5D5D8009C0A19 /* Constants.swift in Sources */,
 				B7F564DD2BC20890009C7893 /* AppDelegate.swift in Sources */,
 				B71C91D22BC253B5003C6635 /* TransactionsViewController.swift in Sources */,
+				B73315882BC642210072AEE8 /* UIImage+Extension.swift in Sources */,
 				B7F564DF2BC20890009C7893 /* SceneDelegate.swift in Sources */,
 				B71C91C42BC2348E003C6635 /* CoordinatorDelegate.swift in Sources */,
 				B71C91C62BC234BD003C6635 /* AppCoordinator.swift in Sources */,
+				B77A9C022BC5DFB4009C0A19 /* TransactionViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
