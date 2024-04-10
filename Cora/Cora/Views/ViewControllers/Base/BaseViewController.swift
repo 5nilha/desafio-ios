@@ -41,9 +41,9 @@ class BaseViewController: UIViewController {
     }
 
     func addNavigationBackButton() {
-        let image = UIImage(systemName: "arrow.left")?.withRenderingMode(.alwaysTemplate).withTintColor(ThemeManager.current.accentColor)
+        let image = UIImage(named: ImageAssets.backLeft)?.withRenderingMode(.alwaysTemplate).withTintColor(ThemeManager.current.primaryColor)
         let barButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(backButtonTapped))
-        barButtonItem.tintColor = ThemeManager.current.accentColor
+        barButtonItem.tintColor = ThemeManager.current.primaryColor
         navigationItem.leftBarButtonItem = barButtonItem
     }
 
