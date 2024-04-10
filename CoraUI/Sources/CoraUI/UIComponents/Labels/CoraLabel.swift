@@ -9,7 +9,7 @@ import UIKit
 
 public class CoraLabel: UILabel {
 
-    enum AttributeType {
+    public enum AttributeType {
         case strikethrough
         case regular
 
@@ -34,8 +34,11 @@ public class CoraLabel: UILabel {
         super.init(coder: coder)
     }
 
-    convenience init(_ attributeType: AttributeType = .regular) {
+    public convenience init(_ attributeType: AttributeType = .regular, text: String? = nil) {
         self.init(frame: .zero)
+        self.attributeType = attributeType
+        super.text = text
+        setAttributedText()
     }
 
     public override var text: String? {
