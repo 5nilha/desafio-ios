@@ -13,6 +13,28 @@ public class CoraButton: BaseView {
 
     public var onClick: (() -> Void)?
 
+    public var paddingLeft: CGFloat {
+        return 16
+    }
+
+    public var paddingRight: CGFloat {
+        return 16
+    }
+
+    public var paddingTop: CGFloat {
+        return 0
+    }
+
+    public var paddingBottom: CGFloat {
+        return 0
+    }
+
+    public var title: String? {
+        didSet {
+            button.setTitle(title, for: .normal)
+        }
+    }
+
     public var isActive: Bool = true {
         didSet {
             button.isEnabled = isActive
@@ -28,7 +50,7 @@ public class CoraButton: BaseView {
 
     public var buttonStyle: CoraButtonStyle = .regular() {
         didSet {
-            button.titleLabel?.font = buttonStyle.font
+            configureButtonUI()
         }
     }
 
@@ -57,6 +79,11 @@ public class CoraButton: BaseView {
         button.configuration?.image = icon
     }
 
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        setCorners()
+    }
+
     private func setView() {
         button.translatesAutoresizingMaskIntoConstraints = false
         addSubview(button)
@@ -78,28 +105,29 @@ public class CoraButton: BaseView {
     }
 
     private func setCorners() {
-        button.layer.cornerRadius = buttonStyle.cornerRadius
+        let radius = button.frame.height * 0.25
+        button.layer.cornerRadius = radius
         button.clipsToBounds = true
-        self.layer.cornerRadius = buttonStyle.cornerRadius
+        self.layer.cornerRadius = radius
         self.clipsToBounds = true
     }
 
     private func configureButtonUI() {
         button.titleLabel?.font = buttonStyle.font
-        button.contentHorizontalAlignment = .left
-        setCorners()
+
+        button.contentHorizontalAlignment = icon != nil ? .left : .center
 
         button.setTitleColor(buttonStyle.titleColor, for: .normal)
         button.setTitleColor(buttonStyle.disabledTitleColor, for: .disabled)
 
         var config = UIButton.Configuration.filled()
-        config.baseBackgroundColor = ThemeManager.current.primaryColor
+        config.baseBackgroundColor = buttonStyle.backgoundColor
 //        config.baseForegroundColor = ThemeManager.current.secondaryColor
         config.image = icon
-        config.titleAlignment = .center
+        config.titleAlignment = icon != nil ? UIButton.Configuration.TitleAlignment.leading : UIButton.Configuration.TitleAlignment.center
         config.imagePlacement = .trailing
         config.imagePadding = 8
-        config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16)
+        config.contentInsets = NSDirectionalEdgeInsets(top: paddingTop, leading: paddingLeft, bottom: paddingBottom, trailing: paddingRight)
         button.configuration = config
     }
 
@@ -127,7 +155,6 @@ public class CoraButton: BaseView {
     }
 
     @objc private func buttonAction() {
-        isActive = false
         onClick?()
     }
 
