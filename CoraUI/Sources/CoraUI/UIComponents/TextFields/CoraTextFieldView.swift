@@ -65,7 +65,6 @@ public class CoraTextFieldView: BaseView {
     }
 
     internal func setupUI() {
-        backgroundColor = .yellow
         translatesAutoresizingMaskIntoConstraints = false
         addSubview(hStack)
 
