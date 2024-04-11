@@ -18,17 +18,12 @@ public enum CoraButtonStyle {
         }
     }
 
-    internal var cornerRadius: CGFloat {
-        switch self {
-        case .regular(let theme, _): return theme.cornerRadius
-        case .link: return 0
-        }
-    }
-
     internal var titleColor: UIColor? {
         switch self {
-        case .regular(let theme, _), .link(let theme, _):
+        case .regular(let theme, _):
             return theme.titleColor
+        case .link(let theme, _):
+            return theme == .primary ? ThemeManager.current.primaryColor : ThemeManager.current.secondaryColor
         }
     }
 
@@ -37,7 +32,7 @@ public enum CoraButtonStyle {
         case .regular(let theme, _):
             return theme.disabledTitleColor
         case .link(let theme, _):
-            return theme.titleColor
+            return theme == .primary ? ThemeManager.current.primaryColor : ThemeManager.current.secondaryColor
         }
     }
 
