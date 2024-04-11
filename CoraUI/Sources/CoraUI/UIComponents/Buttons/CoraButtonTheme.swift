@@ -11,10 +11,6 @@ public enum CoraButtonTheme {
     case primary
     case secondary
 
-    internal var cornerRadius: CGFloat {
-        return 16
-    }
-
     internal var titleColor: UIColor? {
         switch self {
         case .primary: return ThemeManager.current.secondaryColor
@@ -31,8 +27,10 @@ public enum CoraButtonTheme {
 
     internal var backgoundColor: UIColor? {
         switch self {
-        case .primary: return ThemeManager.current.primaryColor
-        case .secondary: return ThemeManager.current.secondaryColor
+        case .primary: 
+            return ThemeManager.current.primaryColor
+        case .secondary: 
+            return ThemeManager.current.secondaryColor
         }
     }
 
