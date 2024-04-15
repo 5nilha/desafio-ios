@@ -12,7 +12,7 @@ extension UISegmentedControl{
 
     func removeBorder(){
 
-        let background = UIImage.getSegRect(color: UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 0.0).cgColor, andSize: self.bounds.size) // segment background color and size
+        let background = UIImage.getSegRect(color: UIColor.clear.cgColor, andSize: self.bounds.size) // segment background color and size
 
         self.setBackgroundImage(background, for: .normal, barMetrics: .default)
 
@@ -21,13 +21,13 @@ extension UISegmentedControl{
         self.setBackgroundImage(background, for: .highlighted, barMetrics: .default)
 
 
-        let deviderLine = UIImage.getSegRect(color: UIColor.clear.cgColor, andSize: CGSize(width: 1.0, height: 5))
+        let dividerLine = UIImage.getSegRect(color: UIColor.clear.cgColor, andSize: CGSize(width: 1.0, height: 5))
 
-        self.setDividerImage(deviderLine, forLeftSegmentState: .selected, rightSegmentState: .normal, barMetrics: .default)
+        self.setDividerImage(dividerLine, forLeftSegmentState: .selected, rightSegmentState: .normal, barMetrics: .default)
 
-        self.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.gray], for: .normal)
+        self.setTitleTextAttributes([NSAttributedString.Key.foregroundColor:ThemeManager.current.grayTextColor], for: .normal)
 
-        self.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .selected)
+        self.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: ThemeManager.current.primaryColor], for: .selected)
 
     }
 
@@ -42,26 +42,21 @@ extension UISegmentedControl{
         underLine.tag = 1
         self.addSubview(underLine)
 
-        // Calculate the width of the text for the selected segment
         if let segmentTitle = self.titleForSegment(at: self.selectedSegmentIndex),
            let fontAttributes = self.titleTextAttributes(for: .normal) {
             let textSize = (segmentTitle as NSString).size(withAttributes: fontAttributes)
-
-            // Calculate X position based on text size
             let count = CGFloat(self.numberOfSegments)
             let segmentWidth = self.bounds.width / count
-            let textWidth = textSize.width + 10
-
-            // Centering the underline view under the text
+            let textWidth = segmentWidth - textSize.width
             let leadingInset = (segmentWidth - textWidth) / 2
-            let lineXPosition = CGFloat(self.selectedSegmentIndex) * segmentWidth + leadingInset
+            let lineXPosition = CGFloat(self.selectedSegmentIndex) * segmentWidth
 
             underLine.translatesAutoresizingMaskIntoConstraints = false
 
             NSLayoutConstraint.activate([
                 underLine.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -15),
                 underLine.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: lineXPosition),
-                underLine.widthAnchor.constraint(equalToConstant: textWidth),
+                underLine.widthAnchor.constraint(equalToConstant: segmentWidth),
                 underLine.heightAnchor.constraint(equalToConstant: underlineHeight)
             ])
         }
@@ -69,6 +64,7 @@ extension UISegmentedControl{
 
     func underlinePosition(){
         guard let underLine = self.viewWithTag(1) else {return}
+        underLine.isHidden = self.titleForSegment(at: self.selectedSegmentIndex) == nil 
 
         if let segmentTitle = self.titleForSegment(at: self.selectedSegmentIndex),
            let fontAttributes = self.titleTextAttributes(for: .normal) {

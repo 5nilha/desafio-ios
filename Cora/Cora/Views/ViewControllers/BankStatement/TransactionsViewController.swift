@@ -19,7 +19,8 @@ enum TransactionsCategories: String {
 class TransactionsViewController: BaseViewController {
     let items = ["Tudo", "Entrada", "Saída", "Futuro"]
     var segmentedControl: UISegmentedControl!
-    var transactions: [CoraUITransactionViewModeling] = []
+    
+    var transactionsGroupViewModel = TransactionsGroupViewModel()
     var tableView: UITableView!
 
     override func viewDidLoad() {
@@ -65,8 +66,7 @@ class TransactionsViewController: BaseViewController {
         navigationItem.rightBarButtonItem = barButtonItem
     }
 
-    @objc func downloadButtonTapped() {
-    }
+    @objc func downloadButtonTapped() {}
 
     private func setupTableView() {
         tableView = UITableView(frame: .zero, style: .grouped)
@@ -92,36 +92,24 @@ class TransactionsViewController: BaseViewController {
     }
 
     private func loadTransactions() {
-        let transaction = TransactionViewModel(imageName: ImageAssets.incomeTransaction, amount: "R$ 30.00", description: "Pagamento recebido AME", sender: "Guy Edwards", time: "08:48", transactionType: .income, category: "Hoje")
-        let transaction1 = TransactionViewModel(imageName: ImageAssets.barcode, amount: "R$ 20.00", description: "Deposito via boleto", sender: "Leonardo Silva ME", time: "10:30", transactionType: .deposit, category: "Hoje")
-        let transaction2 = TransactionViewModel(imageName: ImageAssets.returnTransaction, amount: "R$ 30.00", description: "Transferencia Estornada", sender: "Daniela Andrade", time: "13:17", transactionType: .returned, category: "Hoje")
-        let transaction3 = TransactionViewModel(imageName: ImageAssets.outcomeTransaction, amount: "R$ 40.00", description: "Transferencia enviada", sender: "Boleto Pago", time: "09:22", transactionType: .outcome, category: "Hoje")
-        transactions.append(transaction)
-        transactions.append(transaction1)
-        transactions.append(transaction2)
-        transactions.append(transaction3)
         tableView.reloadData()
     }
-
 }
 
 extension TransactionsViewController: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        // Here we could be grouping transactions by their category e.g., "Hoje", "Ontem"
-        return 3
-        let categories = Set(transactions.map { $0.category })
-        return categories.count
+        return transactionsGroupViewModel.numOfSections()
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 32
+        return transactionsGroupViewModel.titleHeight
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 32))
         view.backgroundColor = ThemeManager.current.lightColor
 
-        let label = CoraLabel(text: "Hoje - 6 de Agosto")
+        let label = CoraLabel(text: transactionsGroupViewModel.titleForDailyTransactions(section: section))
         view.addSubview(label)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = CoraFonts.regular(ofSize: 12).font
@@ -136,17 +124,26 @@ extension TransactionsViewController: UITableViewDelegate, UITableViewDataSource
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return transactions.count
+        return transactionsGroupViewModel.numOfTransactions(section: section)
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: TransactionTableViewCell.identifier, for: indexPath) as! TransactionTableViewCell
-        let transaction = transactions[indexPath.row]
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: TransactionTableViewCell.identifier, for: indexPath) as? TransactionTableViewCell,
+              let transaction = transactionsGroupViewModel.transactionAt(section: indexPath.section, index: indexPath.row)
+        else {
+            return UITableViewCell()
+        }
+
         cell.configure(with: transaction)
         return cell
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let transaction = transactionsGroupViewModel.transactionAt(section: indexPath.section, index: indexPath.row) else { return }
+        delegate?.nextView()
     }
 }

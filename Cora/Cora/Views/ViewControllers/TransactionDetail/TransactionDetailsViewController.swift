@@ -10,6 +10,10 @@ import CoraUI
 
 class TransactionDetailsViewController: BaseViewController {
 
+    let transactionDetailsViewModel = TransactionDetailsViewModel()
+    
+    //MARK: UI Components
+
     let scrollView = UIScrollView()
     let primaryButton: CoraButton = CoraButton(title: "Compartilhar comprovante")
 
@@ -21,9 +25,119 @@ class TransactionDetailsViewController: BaseViewController {
         return stack
     }()
 
+    let iconView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+
+    let titleLabel: CoraLabel = {
+        let label = CoraLabel()
+        label.font = CoraFonts.bold(ofSize: 16).font
+        return label
+    }()
+
+    let amountTitleLabel: CoraLabel = {
+        let label = CoraLabel(text: "Valor")
+        label.font = CoraFonts.regular(ofSize: 14).font
+        label.textColor = ThemeManager.current.darkTextColor
+        return label
+    }()
+
+    let amountTextLabel: CoraLabel = {
+        let label = CoraLabel()
+        label.font = CoraFonts.bold(ofSize: 16).font
+        label.textColor = ThemeManager.current.darkTextColor
+        label.numberOfLines = 0
+        return label
+    }()
+
+    let dateTitleLabel: CoraLabel = {
+        let label = CoraLabel(text: "Data")
+        label.font = CoraFonts.regular(ofSize: 14).font
+        label.textColor = ThemeManager.current.darkTextColor
+        return label
+    }()
+
+    let dateTextLabel: CoraLabel = {
+        let label = CoraLabel()
+        label.font = CoraFonts.bold(ofSize: 16).font
+        label.textColor = ThemeManager.current.darkTextColor
+        label.numberOfLines = 0
+        return label
+    }()
+
+    let recipientTitle: CoraLabel = {
+        let label = CoraLabel(text: "De")
+        label.font = CoraFonts.regular(ofSize: 14).font
+        label.textColor = ThemeManager.current.darkTextColor
+        return label
+    }()
+
+
+    let recipientNameLabel: CoraLabel = {
+        let label = CoraLabel()
+        label.font = CoraFonts.bold(ofSize: 16).font
+        label.textColor = ThemeManager.current.darkTextColor
+        label.numberOfLines = 0
+        return label
+    }()
+
+    let recipientInfoLabel: CoraLabel = {
+        let label = CoraLabel()
+        label.font = CoraFonts.regular(ofSize: 14).font
+        label.textColor = ThemeManager.current.grayTextColor
+        label.numberOfLines = 0
+        return label
+    }()
+
+    let senderTitle: CoraLabel = {
+        let label = CoraLabel(text: "Para")
+        label.font = CoraFonts.regular(ofSize: 14).font
+        label.textColor = ThemeManager.current.darkTextColor
+        return label
+    }()
+
+    let senderNameLabel: CoraLabel = {
+        let label = CoraLabel()
+        label.font = CoraFonts.bold(ofSize: 16).font
+        label.textColor = ThemeManager.current.darkTextColor
+        label.numberOfLines = 0
+        return label
+    }()
+
+    let senderInfoLabel: CoraLabel = {
+        let label = CoraLabel()
+        label.font = CoraFonts.regular(ofSize: 14).font
+        label.textColor = ThemeManager.current.grayTextColor
+        label.numberOfLines = 0
+        return label
+    }()
+
+    let descriptionTitleLabel: CoraLabel = {
+        let label = CoraLabel(text: "Descrição")
+        label.font = CoraFonts.regular(ofSize: 14).font
+        label.textColor = ThemeManager.current.darkTextColor
+        return label
+    }()
+
+    let descriptionTextLabel: CoraLabel = {
+        let label = CoraLabel()
+        label.font = CoraFonts.regular(ofSize: 14).font
+        label.textColor = ThemeManager.current.grayTextColor
+        label.numberOfLines = 0
+        return label
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+
+        transactionDetailsViewModel.onLoadData = { [weak self] in
+            self?.updateUI()
+        }
+        transactionDetailsViewModel.loadData()
     }
 
     func setupUI() {
@@ -31,35 +145,14 @@ class TransactionDetailsViewController: BaseViewController {
         self.view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         scrollView.translatesAutoresizingMaskIntoConstraints = false
-
         scrollView.contentSize = CGSize(width: view.frame.width, height: contentView.frame.origin.y + contentView.frame.size.height + primaryButton.frame.size.height + 48)
 
-        let titleStack = buildTitleStack(icon: UIImage(named: ImageAssets.outcomeTransaction), title: "Transferencia enviada")
-        contentView.addArrangedSubview(titleStack)
-
-        let transactionValueStack = buildTransactionValueStack(title: "Valor", value: "R$ 154,00")
-        contentView.addArrangedSubview(transactionValueStack)
-
-        let dateStack = buildDateStack(title: "Data", date: "Hoje - 12/10/2019")
-        contentView.addArrangedSubview(dateStack)
-
-        let transactionInfo1 = buildTransferInfoStack(title: "De", subject: "Dev iOS", info: """
-        CPF 123.456.789-10
-        Banco Cora
-        Agência 1234 - Conta 12345-6
-        """)
-        contentView.addArrangedSubview(transactionInfo1)
-
-        let transactionInfo2 = buildTransferInfoStack(title: "Para", subject: "Dev iOS", info: """
-        CPF 123.456.789-10
-        Banco Cora
-        Agência 1234 - Conta 12345-6
-        """)
-        contentView.addArrangedSubview(transactionInfo2)
-
-        let descriptionStack = buildDescriptionStack(title: "Descrição", description: "Developed by the Intel Corporation, HDCP stands for high-bandwidth digital content protection. As the descriptive name implies.")
-        contentView.addArrangedSubview(descriptionStack)
-
+        contentView.addArrangedSubview(buildStack(components: [iconView, titleLabel], axis: .horizontal, spacing: 8))
+        contentView.addArrangedSubview(buildStack(components: [amountTitleLabel, amountTextLabel]))
+        contentView.addArrangedSubview(buildStack(components: [dateTitleLabel, dateTextLabel]))
+        contentView.addArrangedSubview(buildStack(components: [recipientTitle, recipientNameLabel, recipientInfoLabel]))
+        contentView.addArrangedSubview(buildStack(components: [senderTitle, senderNameLabel, senderInfoLabel]))
+        contentView.addArrangedSubview(buildStack(components: [descriptionTitleLabel, descriptionTextLabel]))
         setupButton()
 
         NSLayoutConstraint.activate([
@@ -71,7 +164,10 @@ class TransactionDetailsViewController: BaseViewController {
                 contentView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 32),
                 contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 24),
                 contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor, constant: -24),
-                contentView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, constant: -(24 * 2))
+                contentView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, constant: -(24 * 2)),
+
+                iconView.widthAnchor.constraint(equalToConstant: 24),
+                iconView.heightAnchor.constraint(equalTo: iconView.heightAnchor)
             ])
     }
 
@@ -82,87 +178,6 @@ class TransactionDetailsViewController: BaseViewController {
 
         components.forEach { stack.addArrangedSubview($0) }
         return stack
-    }
-
-    func buildTransactionValueStack(title: String, value: String) -> UIStackView {
-        let titleLabel: UILabel = UILabel()
-        titleLabel.text = title
-        titleLabel.font = CoraFonts.regular(ofSize: 14).font
-        titleLabel.textColor = ThemeManager.current.darkTextColor
-
-        let valueLabel: UILabel = UILabel()
-        valueLabel.text = value
-        valueLabel.font = CoraFonts.bold(ofSize: 16).font
-        valueLabel.textColor = ThemeManager.current.darkTextColor
-        valueLabel.numberOfLines = 0
-
-        return buildStack(components: [titleLabel, valueLabel])
-    }
-
-    func buildDateStack(title: String, date: String) -> UIStackView {
-        let titleLabel: UILabel = UILabel()
-        titleLabel.text = title
-        titleLabel.font = CoraFonts.regular(ofSize: 14).font
-        titleLabel.textColor = ThemeManager.current.darkTextColor
-
-        let dateLabel: UILabel = UILabel()
-        dateLabel.text = date
-        dateLabel.font = CoraFonts.bold(ofSize: 16).font
-        dateLabel.textColor = ThemeManager.current.darkTextColor
-        dateLabel.numberOfLines = 0
-
-        return buildStack(components: [titleLabel, dateLabel])
-    }
-
-    func buildTitleStack(icon: UIImage? = nil, title: String) -> UIStackView {
-        let iconView = UIImageView()
-        iconView.translatesAutoresizingMaskIntoConstraints = false
-        iconView.contentMode = .scaleAspectFit
-        iconView.image = icon
-
-        iconView.widthAnchor.constraint(equalToConstant: 24).isActive = true
-        iconView.heightAnchor.constraint(equalTo: iconView.heightAnchor).isActive = true
-
-        let label = CoraLabel(text: title)
-        label.font = CoraFonts.bold(ofSize: 16).font
-
-        return buildStack(components: [iconView, label], axis: .horizontal, spacing: 8)
-    }
-
-    func buildTransferInfoStack(title: String, subject: String, info: String) -> UIStackView {
-        let titleLabel: UILabel = UILabel()
-        titleLabel.text = title
-        titleLabel.font = CoraFonts.regular(ofSize: 14).font
-        titleLabel.textColor = ThemeManager.current.darkTextColor
-
-        let subjectLabel: UILabel = UILabel()
-        subjectLabel.text = subject
-        subjectLabel.font = CoraFonts.bold(ofSize: 16).font
-        subjectLabel.textColor = ThemeManager.current.darkTextColor
-        subjectLabel.numberOfLines = 0
-
-        let infoLabel: UILabel = UILabel()
-        infoLabel.text = info
-        infoLabel.font = CoraFonts.regular(ofSize: 14).font
-        infoLabel.textColor = ThemeManager.current.grayTextColor
-        infoLabel.numberOfLines = 0
-
-        return buildStack(components: [titleLabel, subjectLabel, infoLabel])
-    }
-
-    func buildDescriptionStack(title: String, description: String) -> UIStackView {
-        let descriptionTitleLabel: UILabel = UILabel()
-        descriptionTitleLabel.text = title
-        descriptionTitleLabel.font = CoraFonts.regular(ofSize: 14).font
-        descriptionTitleLabel.textColor = ThemeManager.current.darkTextColor
-
-        let descriptionLabel: UILabel = UILabel()
-        descriptionLabel.text = description
-        descriptionLabel.font = CoraFonts.regular(ofSize: 14).font
-        descriptionLabel.textColor = ThemeManager.current.grayTextColor
-        descriptionLabel.numberOfLines = 0
-
-        return buildStack(components: [descriptionTitleLabel, descriptionLabel])
     }
 
     func setupButton() {
@@ -180,5 +195,21 @@ class TransactionDetailsViewController: BaseViewController {
         ])
         contentView.addArrangedSubview(spacerView)
         contentView.addArrangedSubview(primaryButton)
+    }
+
+    private func updateUI() {
+        iconView.image = UIImage(named: transactionDetailsViewModel.imageName)
+        titleLabel.text = transactionDetailsViewModel.label
+
+        amountTextLabel.text = transactionDetailsViewModel.amount
+        dateTextLabel.text = transactionDetailsViewModel.date
+
+        recipientNameLabel.text = transactionDetailsViewModel.recipientName
+        recipientInfoLabel.text = transactionDetailsViewModel.recipientInfo
+
+        senderNameLabel.text = transactionDetailsViewModel.senderName
+        senderInfoLabel.text = transactionDetailsViewModel.senderInfo
+
+        descriptionTextLabel.text = transactionDetailsViewModel.description
     }
 }

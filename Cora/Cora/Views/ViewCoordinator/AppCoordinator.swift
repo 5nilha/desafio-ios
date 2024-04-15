@@ -17,7 +17,7 @@ class AppCoordinator: Coordinator {
     }
 
     func start() {
-        showView(.home)
+        showView(.transactionDetails)
     }
 
     private func showView(_ coordinatedView: CoordinatedFlow) {

@@ -8,11 +8,11 @@
 import Foundation
 
 public protocol CoraUITransactionViewModeling {
+    var id: String { get }
     var imageName: String { get }
     var amount: String { get }
     var description: String { get }
-    var sender: String { get }
+    var name: String { get }
     var time: String { get }
     var transactionType: CoraUITransactionViewType { get }
-    var category: String? { get }
 }

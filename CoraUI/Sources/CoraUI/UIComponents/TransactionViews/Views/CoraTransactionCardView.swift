@@ -12,7 +12,7 @@ public class CoraTransactionCardView: BaseView {
     private let transactionImageView = UIImageView()
     private let amountLabel = CoraLabel()
     private let descriptionLabel = UILabel()
-    private let senderLabel = UILabel()
+    private let nameLabel = UILabel()
     private let timeLabel = UILabel()
 
     private var transaction: CoraUITransactionViewModeling?
@@ -57,10 +57,10 @@ public class CoraTransactionCardView: BaseView {
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         vStack.addArrangedSubview(descriptionLabel)
 
-        senderLabel.font = CoraFonts.regular(ofSize: 14).font
-        senderLabel.textColor = ThemeManager.current.grayTextColor
-        senderLabel.translatesAutoresizingMaskIntoConstraints = false
-        vStack.addArrangedSubview(senderLabel)
+        nameLabel.font = CoraFonts.regular(ofSize: 14).font
+        nameLabel.textColor = ThemeManager.current.grayTextColor
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        vStack.addArrangedSubview(nameLabel)
 
         timeLabel.font = CoraFonts.regular(ofSize: 12).font
         timeLabel.textColor = ThemeManager.current.grayTextColor
@@ -128,7 +128,7 @@ public class CoraTransactionCardView: BaseView {
 
         amountLabel.text = transaction.amount
         descriptionLabel.text = transaction.description
-        senderLabel.text = transaction.sender
+        nameLabel.text = transaction.name
         timeLabel.text = transaction.time
     }
 }

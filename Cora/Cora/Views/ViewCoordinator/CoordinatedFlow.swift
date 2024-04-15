@@ -6,6 +6,10 @@
 //
 
 import Foundation
+
+
+protocol ViewModeling {}
+
 enum CoordinatedFlow {
     case home
     case loginProfile

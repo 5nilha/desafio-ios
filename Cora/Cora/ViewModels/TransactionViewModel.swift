@@ -8,26 +8,43 @@
 import CoraUI
 
 struct TransactionViewModel: CoraUITransactionViewModeling {
-    let imageName: String
-    let amount: String
-    let description: String
-    let sender: String
-    let time: String
-    let transactionType: CoraUITransactionViewType
-    private (set) var category: String?
+    
+    let transaction: Transaction
 
-    init(imageName: String,
-         amount: String,
-         description: String,
-         sender: String,
-         time: String,
-         transactionType: CoraUITransactionViewType,
-         category: String? = nil) {
-        self.imageName = imageName
-        self.amount = amount
-        self.description = description
-        self.sender = sender
-        self.time = time
-        self.transactionType = transactionType
+    init(transaction: Transaction) {
+        self.transaction = transaction
+    }
+    
+    var id: String {
+        return transaction.id
+    }
+
+    var imageName: String  {
+        return ""
+    }
+
+    var amount: String {
+        return "\(transaction.amount)"
+    }
+
+    var description: String {
+        return transaction.label
+    }
+
+    var name: String {
+        return transaction.name
+    }
+
+    var time: String {
+        return transaction.dateEvent.formatToHoursAndMinutes()
+    }
+
+    var transactionType: CoraUITransactionViewType {
+        switch transaction.entry {
+        case .credit:
+            return .income
+        case .debit:
+            return .outcome
+        }
     }
 }
